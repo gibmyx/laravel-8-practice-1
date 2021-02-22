@@ -14,15 +14,10 @@ RUN apt-get update && apt-get install -y \
 
 RUN apt-get update -y
 
-# Add Node 8 LTS
-#RUN curl -sL https://deb.nodesource.com/setup_8.x | bash -- \
-#	&& apt-get install -y nodejs \
-#	&& apt-get autoremove -y
-
 COPY --from=composer /usr/bin/composer /usr/bin/composer
 
-COPY  docker/000-default.conf /etc/apache2/sites-available/000-default.conf
-COPY  docker/php.ini /usr/local/etc/php/php.ini
+COPY  000-default.conf /etc/apache2/sites-available/000-default.conf
+COPY  php.ini /usr/local/etc/php/php.ini
 
 ENV COMPOSER_ALLOW_SUPERUSER 1
 

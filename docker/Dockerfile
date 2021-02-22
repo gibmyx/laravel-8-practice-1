@@ -15,11 +15,20 @@ RUN apt-get update && apt-get install -y \
 RUN apt-get update -y
 
 COPY --from=composer /usr/bin/composer /usr/bin/composer
+#RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
 
 COPY  000-default.conf /etc/apache2/sites-available/000-default.conf
 COPY  php.ini /usr/local/etc/php/php.ini
 
 ENV COMPOSER_ALLOW_SUPERUSER 1
+
+
+
+# Create 'me' user like local machime user.
+#RUN useradd me && usermod -G www-data -a me
+
+# Add www-data to adm group
+#RUN usermod -a -G adm www-data
 
 #COPY  . /var/www/html/
 #COPY  ./.env.example /var/www/html/.env
